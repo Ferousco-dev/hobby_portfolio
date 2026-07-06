@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" fill="none">
+  <rect width="420" height="270" rx="18" fill="#111417"/>
+  <rect x="1" y="1" width="418" height="268" rx="17" fill="none" stroke="#217346" stroke-opacity="0.35"/>
+  <g fill="#217346" opacity="0.85">
+    <rect x="28" y="150" width="34" height="86" rx="4"/>
+    <rect x="74" y="120" width="34" height="116" rx="4" opacity="0.7"/>
+    <rect x="120" y="170" width="34" height="66" rx="4" opacity="0.55"/>
+  </g>
+  <circle cx="320" cy="120" r="52" fill="none" stroke="#217346" stroke-width="16" opacity="0.3"/>
+  <circle cx="320" cy="120" r="52" fill="none" stroke="#217346" stroke-width="16" stroke-dasharray="150 330" transform="rotate(-90 320 120)"/>
+  <text x="28" y="52" fill="#217346" font-family="Arial, sans-serif" font-size="20" font-weight="700">Excel dashboard</text>
+  <text x="28" y="76" fill="#6b7280" font-family="Arial, sans-serif" font-size="13">Replace with your AI image</text>
+</svg>
