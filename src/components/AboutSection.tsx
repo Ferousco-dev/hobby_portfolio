@@ -8,7 +8,7 @@ const LEGO  = '/about_lego.png'
 const GROUP = '/about_group.png'
 
 const ABOUT_TEXT =
-  "I'm a Frontend and Mobile App Developer specializing in Flutter. I build beautiful, responsive, and user-friendly mobile experiences \u2014 combining clean design with smooth interactions. My passion is transforming ideas into engaging digital products that solve real-world problems. Let's build something incredible together!"
+  "I'm Oresajo Fiyinfoluwa Eniola, a Data Analyst who turns raw, messy data into clear stories that drive decisions. I clean and transform data, build interactive dashboards in Excel and Power BI, and use pivot tables, DAX and the right visuals to surface what actually matters \u2014 revenue, profit, customers and trends. Let's make sense of your data together!"
 
 export default function AboutSection() {
   return (
