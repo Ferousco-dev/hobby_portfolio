@@ -7,6 +7,11 @@ export interface Project {
   image: string
   tools: string[]
   link?: string
+  featured?: boolean
+  /** Downloadable source file (Excel / Power BI workbook). */
+  fileUrl?: string
+  /** Long-form, Gemini-generated write-up shown on the project pages. */
+  writeup?: string
 }
 
 // Real data-analysis work by Oresajo Fiyinfoluwa Eniola.
@@ -22,6 +27,7 @@ export const PROJECTS: Project[] = [
       'An interactive Excel dashboard on a retail sales dataset — calculated Revenue, COGS, Profit and Customer KPIs, then built pivot tables to surface the most profitable products and sales reps, city-level COGS and the worst-performing month. Region and Category slicers make it fully interactive.',
     image: '/projects/excel-dashboard.svg',
     tools: ['Excel', 'Pivot Tables', 'Charts', 'Slicers', 'KPIs'],
+    featured: true,
   },
   {
     slug: 'powerbi-sales-dashboard',
@@ -32,6 +38,7 @@ export const PROJECTS: Project[] = [
       'A Power BI report built on a Products / Customers / Sales data model. Cleaned each table in Power Query, wrote DAX measures for Revenue, Cost, Profit and Total Customers, and visualised Brand by Profit, most-sold Color, Yearly Revenue and Income Level by Profit, with Region and Gender slicers.',
     image: '/projects/powerbi-dashboard.svg',
     tools: ['Power BI', 'DAX', 'Power Query', 'Data Modeling'],
+    featured: true,
   },
   {
     slug: 'excel-data-cleaning',
@@ -42,6 +49,7 @@ export const PROJECTS: Project[] = [
       'A messy orders dataset turned analysis-ready: removed duplicate rows, trimmed and standardised text, fixed casing, replaced missing values, split full names, corrected data types and invalid dates, standardised region names and rebuilt a recalculated Total Sales column.',
     image: '/projects/data-cleaning.svg',
     tools: ['Excel', 'Power Query', 'Data Cleaning', 'Text Functions'],
+    featured: true,
   },
   {
     slug: 'excel-employee-analysis',
