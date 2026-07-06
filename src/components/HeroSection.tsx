@@ -2,9 +2,9 @@ import FadeIn from "./FadeIn";
 import Magnet from "./Magnet";
 import ContactButton from "./ContactButton";
 
-const NAV_LINKS = ["About", "Price", "Projects", "Contact"];
+const NAV_LINKS = ["About", "Skills", "Projects", "Contact"];
 
-const PORTRAIT_URL = "/jack.png";
+const PORTRAIT_URL = "/portrait.png";
 
 export default function HeroSection() {
   return (
@@ -38,7 +38,7 @@ export default function HeroSection() {
           y={40}
           className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-center text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw] mt-6 sm:mt-4 md:-mt-5"
         >
-          Hi, i&apos;m Feranmi
+          Hi, i&apos;m Fiyinfoluwa
         </FadeIn>
       </div>
 
@@ -53,7 +53,7 @@ export default function HeroSection() {
         <FadeIn delay={0.6} y={30}>
           <img
             src={PORTRAIT_URL}
-            alt="Jack — 3D creator, portrait photo"
+            alt="Oresajo Fiyinfoluwa Eniola — Data Analyst, portrait photo"
             className="w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px] select-none pointer-events-none"
             draggable={false}
           />
@@ -69,7 +69,7 @@ export default function HeroSection() {
           className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px]"
           style={{ fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)" }}
         >
-          a frontend & flutter developer building beautiful mobile experiences
+          a data analyst turning messy data into clear, actionable insights with excel & power bi
         </FadeIn>
 
         <FadeIn delay={0.5} y={20}>
