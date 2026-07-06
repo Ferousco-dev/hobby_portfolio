@@ -1,18 +1,24 @@
-import { Mail, Github, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MessageCircle, ArrowUpRight } from "lucide-react";
 import FadeIn from "./FadeIn";
 import ContactButton from "./ContactButton";
 
-const EMAIL = "feranmioresajo@gmail.com";
+const EMAIL = "fiyinfoluwaoresajo@gmail.com";
+const PHONE = "08114409571";
 const SOCIALS = [
-  {
-    label: "GitHub",
-    href: "https://github.com/Ferousco-dev",
-    icon: Github,
-  },
   {
     label: "Email",
     href: `mailto:${EMAIL}`,
     icon: Mail,
+  },
+  {
+    label: "Call",
+    href: `tel:+234${PHONE.slice(1)}`,
+    icon: Phone,
+  },
+  {
+    label: "WhatsApp",
+    href: `https://wa.me/234${PHONE.slice(1)}`,
+    icon: MessageCircle,
   },
 ];
 
@@ -61,8 +67,9 @@ export default function ContactSection() {
             className="text-[#D7E2EA]/60 font-light leading-relaxed max-w-[480px]"
             style={{ fontSize: "clamp(0.95rem, 1.8vw, 1.25rem)" }}
           >
-            Got a project in mind? Whether it's a Flutter app, a web frontend,
-            or something new — I'd love to hear about it.
+            Got data that needs making sense of? Whether it's an Excel
+            dashboard, a Power BI report, or cleaning up a messy dataset —
+            I'd love to hear about it.
           </FadeIn>
         </div>
 
@@ -78,6 +85,17 @@ export default function ContactSection() {
               size={20}
               className="opacity-50 group-hover:opacity-100 transition-opacity shrink-0"
             />
+          </a>
+        </FadeIn>
+
+        {/* Phone */}
+        <FadeIn delay={0.35} y={20} className="-mt-6 sm:-mt-10">
+          <a
+            href={`tel:+234${PHONE.slice(1)}`}
+            className="text-[#D7E2EA]/60 font-light tracking-wide transition-opacity duration-200 hover:opacity-100 hover:text-[#D7E2EA]"
+            style={{ fontSize: "clamp(0.9rem, 1.8vw, 1.15rem)" }}
+          >
+            {PHONE}
           </a>
         </FadeIn>
 
