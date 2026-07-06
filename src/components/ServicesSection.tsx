@@ -9,46 +9,47 @@ interface Service {
 const SERVICES: Service[] = [
   {
     number: '01',
-    name: 'Mobile App Development',
+    name: 'Data Cleaning & Preparation',
     description:
-      'Building cross-platform mobile applications with Flutter & Dart \u2014 beautiful UI, smooth performance, and a consistent experience across iOS and Android.',
+      'Turning messy datasets into analysis-ready tables \u2014 removing duplicates, fixing text and casing, handling missing values, standardising categories and correcting data types with Excel and Power Query.',
   },
   {
     number: '02',
-    name: 'Frontend Development',
+    name: 'Excel Dashboards & Reporting',
     description:
-      'Crafting responsive, modern web interfaces with HTML5, CSS3, and JavaScript that look sharp and work flawlessly on every screen size.',
+      'Building interactive Excel dashboards with pivot tables, KPIs, charts and slicers that let stakeholders explore revenue, profit and performance at a glance.',
   },
   {
     number: '03',
-    name: 'UI/UX Design',
+    name: 'Power BI Dashboards',
     description:
-      'Designing intuitive, user-centered interfaces that balance aesthetics with functionality \u2014 making apps feel effortless to use.',
+      'Designing Power BI reports on clean data models \u2014 DAX measures, drill-downs and slicers that turn tables into decisions across regions, products and customers.',
   },
   {
     number: '04',
-    name: 'Firebase Integration',
+    name: 'DAX & Data Modeling',
     description:
-      'Setting up authentication, real-time databases, cloud storage, and serverless functions to power your mobile and web applications.',
+      'Structuring relationships between tables and writing DAX measures for revenue, cost, profit and customer metrics so numbers stay accurate as filters change.',
   },
   {
     number: '05',
-    name: 'REST API Integration',
+    name: 'Data Visualization & Insights',
     description:
-      'Connecting apps to third-party services and custom backends with clean, reliable data flows and robust error handling.',
+      'Choosing the right chart for the question and translating analysis into clear, honest visuals and recommendations that non-technical people can act on.',
   },
 ]
 
 export default function ServicesSection() {
   return (
     <section
+      id="skills"
       className="bg-white rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32"
     >
       <h2
         className="text-[#0C0C0C] font-black uppercase text-center mb-16 sm:mb-20 md:mb-28"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Services
+        Skills
       </h2>
 
       <div className="max-w-5xl mx-auto">
