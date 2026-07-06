@@ -7,3 +7,5 @@ dist
 .DS_Store
 download_marquee.py
 .claude
+supabase/.temp
+supabase/.branches
