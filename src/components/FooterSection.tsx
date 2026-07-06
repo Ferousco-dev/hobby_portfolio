@@ -1,4 +1,4 @@
-const NAV_LINKS = ['About', 'Projects', 'Contact']
+const NAV_LINKS = ['About', 'Skills', 'Projects', 'Contact']
 
 export default function FooterSection() {
   return (
@@ -6,7 +6,7 @@ export default function FooterSection() {
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Name / brand */}
         <p className="text-[#D7E2EA] font-black uppercase tracking-widest text-sm">
-          Feranmi Oresajo
+          Oresajo Fiyinfoluwa Eniola
         </p>
 
         {/* Nav links */}
@@ -24,7 +24,7 @@ export default function FooterSection() {
 
         {/* Copyright */}
         <p className="text-[#D7E2EA]/30 font-light text-xs">
-          © {new Date().getFullYear()} Feranmi Oresajo
+          © {new Date().getFullYear()} Oresajo Fiyinfoluwa Eniola
         </p>
       </div>
     </footer>
