@@ -125,6 +125,23 @@ generates an AI write-up saved to the DB. Refresh the site.
    document** with the caption `Slug: excel-sales-dashboard`. A **Download
    project** button then appears on that project's page.
 
+### Using Google Drive instead of uploading
+Share the file on Drive as **“Anyone with the link”**, then send a **text**
+message (no photo) with a Drive link:
+
+```
+Name: Sales Dashboard
+Category: Excel · Dashboard
+Tools: Excel, Pivot Tables
+Summary: What it does...
+Image: https://drive.google.com/file/d/FILE_ID/view
+Featured: yes
+```
+
+The bot pulls a **preview of the Drive file** for the project image (self-hosts
+it in Supabase so it always loads) and keeps the Drive link as the download.
+Add a separate `File:` Drive link if the download should differ from the preview.
+
 To re-add your existing 3 featured projects with real images, just send each
 photo with `Featured: yes` and the matching `Slug:` — the row is updated in
 place (same slug), so the placeholder image is replaced.
