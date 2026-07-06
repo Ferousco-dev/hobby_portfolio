@@ -1,13 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" fill="none">
-  <rect width="420" height="270" rx="18" fill="#111417"/>
-  <rect x="1" y="1" width="418" height="268" rx="17" fill="none" stroke="#f472b6" stroke-opacity="0.35"/>
-  <g fill="#f472b6" opacity="0.85">
-    <rect x="28" y="150" width="34" height="86" rx="4"/>
-    <rect x="74" y="120" width="34" height="116" rx="4" opacity="0.7"/>
-    <rect x="120" y="170" width="34" height="66" rx="4" opacity="0.55"/>
+  <defs>
+    <linearGradient id="bg7" x1="0" y1="0" x2="420" y2="270" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E1620"/><stop offset="1" stop-color="#080C11"/>
+    </linearGradient>
+    <radialGradient id="glow7" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(150 60) scale(200)">
+      <stop stop-color="#38bdf8" stop-opacity="0.32"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bar7" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#7dd3fc"/><stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="420" height="270" rx="18" fill="url(#bg7)"/>
+  <rect width="420" height="270" rx="18" fill="url(#glow7)"/>
+  <rect x="0.75" y="0.75" width="418.5" height="268.5" rx="17.25" stroke="#ffffff" stroke-opacity="0.06"/>
+
+  <!-- bars -->
+  <g>
+    <rect x="30" y="176" width="26" height="56" rx="5" fill="url(#bar7)" opacity="0.85"/>
+    <rect x="66" y="150" width="26" height="82" rx="5" fill="url(#bar7)" opacity="0.85"/>
+    <rect x="102" y="188" width="26" height="44" rx="5" fill="url(#bar7)" opacity="0.85"/>
+    <rect x="138" y="128" width="26" height="104" rx="5" fill="#38bdf8"/>
+    <rect x="174" y="164" width="26" height="68" rx="5" fill="url(#bar7)" opacity="0.85"/>
+    <rect x="210" y="196" width="26" height="36" rx="5" fill="url(#bar7)" opacity="0.85"/>
   </g>
-  <circle cx="320" cy="120" r="52" fill="none" stroke="#f472b6" stroke-width="16" opacity="0.3"/>
-  <circle cx="320" cy="120" r="52" fill="none" stroke="#f472b6" stroke-width="16" stroke-dasharray="150 330" transform="rotate(-90 320 120)"/>
-  <text x="28" y="52" fill="#f472b6" font-family="Arial, sans-serif" font-size="20" font-weight="700">Trend charts</text>
-  <text x="28" y="76" fill="#6b7280" font-family="Arial, sans-serif" font-size="13">Replace with your AI image</text>
+
+  <!-- highlight callout on tallest bar -->
+  <rect x="130" y="112" width="10" height="10" fill="none"/>
+
+  <!-- magnifier -->
+  <g transform="translate(292 150)">
+    <circle r="46" fill="#0b1a2a" fill-opacity="0.6"/>
+    <circle r="46" fill="none" stroke="#7dd3fc" stroke-width="6"/>
+    <line x1="33" y1="33" x2="60" y2="60" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round"/>
+    <path d="M-22 14 L-8 -2 L4 8 L22 -16" fill="none" stroke="#e0f2fe" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="22" cy="-16" r="4" fill="#e0f2fe"/>
+  </g>
+
+  <!-- lightbulb -->
+  <g transform="translate(360 92)">
+    <circle r="15" fill="#fde68a"/>
+    <circle r="15" fill="none" stroke="#f59e0b" stroke-opacity="0.5" stroke-width="2"/>
+    <rect x="-6" y="12" width="12" height="8" rx="2" fill="#f59e0b"/>
+    <g stroke="#fde68a" stroke-width="2.5" stroke-linecap="round">
+      <line x1="0" y1="-24" x2="0" y2="-30"/><line x1="18" y1="0" x2="24" y2="0"/><line x1="13" y1="-13" x2="18" y2="-18"/>
+    </g>
+  </g>
+
+  <text x="26" y="52" fill="#e8f6ff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800">Insights</text>
+  <text x="27" y="72" fill="#5f7a90" font-family="Arial, Helvetica, sans-serif" font-size="12.5" letter-spacing="1">FIND WHAT MATTERS</text>
 </svg>
