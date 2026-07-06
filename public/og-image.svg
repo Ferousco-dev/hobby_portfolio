@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101418"/><stop offset="1" stop-color="#0A0C0F"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(980 120) scale(520)">
+      <stop stop-color="#B600A8" stop-opacity="0.35"/><stop offset="1" stop-color="#B600A8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="name" x1="80" y1="0" x2="80" y2="1">
+      <stop stop-color="#eef4f9"/><stop offset="1" stop-color="#9fb4c4"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#c084fc"/><stop offset="1" stop-color="#7621B0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- chart flourish, right side -->
+  <g opacity="0.9">
+    <rect x="790" y="430" width="46" height="120" rx="8" fill="url(#bar)"/>
+    <rect x="850" y="380" width="46" height="170" rx="8" fill="url(#bar)"/>
+    <rect x="910" y="300" width="46" height="250" rx="8" fill="url(#bar)"/>
+    <rect x="970" y="360" width="46" height="190" rx="8" fill="url(#bar)"/>
+    <rect x="1030" y="250" width="46" height="300" rx="8" fill="url(#bar)"/>
+    <polyline points="813,410 873,360 933,280 993,330 1053,230" fill="none" stroke="#f0abfc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- text -->
+  <text x="80" y="150" fill="#B600A8" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="4">DATA ANALYST</text>
+  <text x="76" y="270" fill="url(#name)" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="800">Oresajo Fiyinfoluwa</text>
+  <text x="80" y="352" fill="url(#name)" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="800">Eniola</text>
+  <text x="80" y="430" fill="#9fb4c4" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400">Excel · Power BI · Dashboards · Data Cleaning</text>
+  <text x="80" y="560" fill="#5f7486" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="600" letter-spacing="1">fiyin.appmd.dev</text>
+</svg>
