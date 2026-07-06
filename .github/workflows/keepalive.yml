@@ -1,0 +1,26 @@
+name: Supabase keep-alive
+
+# Supabase pauses free projects after a few days of inactivity. This runs on
+# GitHub's servers (independent of the project, so it works even while it idles)
+# every 4 days and makes one small read, which counts as activity.
+on:
+  schedule:
+    - cron: '0 8 */4 * *'   # 08:00 UTC on days 1,5,9,13,17,21,25,29 (max gap 4 days)
+  workflow_dispatch:          # lets you run it manually from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Touch the database
+        run: |
+          code=$(curl -sS -o /dev/null -w "%{http_code}" \
+            "${SUPABASE_URL}/rest/v1/projects?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
+          echo "Supabase responded: $code"
+          test "$code" = "200"
+        env:
+          # Public anon key — safe to expose (already shipped in the site JS).
+          SUPABASE_URL: https://pvjzbdmmfuwyibroqnzo.supabase.co
+          SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2anpiZG1tZnV3eWlicm9xbnpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzNjc1MjQsImV4cCI6MjA5ODk0MzUyNH0.KisbP5vpSbO6GcD5kz8SxgJ_nLsAeVLP-ksv9KbZ8Og
