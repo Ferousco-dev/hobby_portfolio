@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#0F1512"/>
+  <rect width="800" height="500" fill="url(#g)" opacity="0.5"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="800" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123524"/><stop offset="1" stop-color="#0F1512"/>
+    </linearGradient>
+  </defs>
+  <g fill="#217346">
+    <rect x="48" y="48" width="150" height="70" rx="10" opacity="0.9"/>
+    <rect x="214" y="48" width="150" height="70" rx="10" opacity="0.7"/>
+    <rect x="380" y="48" width="150" height="70" rx="10" opacity="0.55"/>
+    <rect x="546" y="48" width="150" height="70" rx="10" opacity="0.4"/>
+  </g>
+  <g fill="#2ea36b">
+    <rect x="48" y="200" width="46" height="240" rx="4"/>
+    <rect x="118" y="290" width="46" height="150" rx="4"/>
+    <rect x="188" y="240" width="46" height="200" rx="4"/>
+    <rect x="258" y="330" width="46" height="110" rx="4"/>
+    <rect x="328" y="180" width="46" height="260" rx="4"/>
+  </g>
+  <circle cx="590" cy="320" r="105" fill="none" stroke="#217346" stroke-width="34" opacity="0.35"/>
+  <circle cx="590" cy="320" r="105" fill="none" stroke="#2ea36b" stroke-width="34" stroke-dasharray="330 660" transform="rotate(-90 590 320)"/>
+  <text x="48" y="474" fill="#7fe0ac" font-family="Arial, sans-serif" font-size="22" font-weight="700">Excel Sales Performance Dashboard</text>
+</svg>
