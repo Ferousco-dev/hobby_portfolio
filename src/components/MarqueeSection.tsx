@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 
 const ROW_1 = [
-  '/marquee/marquee_01.webp',
-  '/marquee/marquee_02.webp',
-  '/marquee/marquee_03.webp',
-  '/marquee/marquee_04.webp',
+  '/marquee/marquee_01.svg',
+  '/marquee/marquee_02.svg',
+  '/marquee/marquee_03.svg',
+  '/marquee/marquee_04.svg',
 ]
 const ROW_2 = [
-  '/marquee/marquee_05.webp',
-  '/marquee/marquee_06.webp',
-  '/marquee/marquee_07.webp',
+  '/marquee/marquee_05.svg',
+  '/marquee/marquee_06.svg',
+  '/marquee/marquee_07.svg',
 ]
 
 function Tile({ src }: { src: string }) {
