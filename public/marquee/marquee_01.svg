@@ -1,13 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" fill="none">
-  <rect width="420" height="270" rx="18" fill="#111417"/>
-  <rect x="1" y="1" width="418" height="268" rx="17" fill="none" stroke="" stroke-opacity="0.35"/>
-  <g fill="" opacity="0.85">
-    <rect x="28" y="150" width="34" height="86" rx="4"/>
-    <rect x="74" y="120" width="34" height="116" rx="4" opacity="0.7"/>
-    <rect x="120" y="170" width="34" height="66" rx="4" opacity="0.55"/>
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="420" y2="270" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111820"/><stop offset="1" stop-color="#0A0D11"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(120 70) scale(180)">
+      <stop stop-color="#38bdf8" stop-opacity="0.35"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="arr1" x1="188" y1="0" x2="232" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8"/><stop offset="1" stop-color="#22d3a6"/>
+    </linearGradient>
+  </defs>
+  <rect width="420" height="270" rx="18" fill="url(#bg1)"/>
+  <rect width="420" height="270" rx="18" fill="url(#glow1)"/>
+  <rect x="0.75" y="0.75" width="418.5" height="268.5" rx="17.25" stroke="#ffffff" stroke-opacity="0.06"/>
+
+  <g>
+    <rect x="26" y="86" width="140" height="150" rx="12" fill="#161C24" stroke="#38bdf8" stroke-opacity="0.15"/>
+    <rect x="38" y="100" width="116" height="14" rx="4" fill="#2b3644"/>
+    <rect x="38" y="124" width="116" height="12" rx="4" fill="#3a2730"/>
+    <rect x="38" y="144" width="80" height="12" rx="4" fill="#28323f"/>
+    <rect x="38" y="164" width="116" height="12" rx="4" fill="#3a2730"/>
+    <rect x="38" y="184" width="60" height="12" rx="4" fill="#28323f"/>
+    <rect x="38" y="204" width="116" height="12" rx="4" fill="#28323f"/>
   </g>
-  <circle cx="320" cy="120" r="52" fill="none" stroke="" stroke-width="16" opacity="0.3"/>
-  <circle cx="320" cy="120" r="52" fill="none" stroke="" stroke-width="16" stroke-dasharray="150 330" transform="rotate(-90 320 120)"/>
-  <text x="28" y="52" fill="" font-family="Arial, sans-serif" font-size="20" font-weight="700"></text>
-  <text x="28" y="76" fill="#6b7280" font-family="Arial, sans-serif" font-size="13">Replace with your AI image</text>
+
+  <path d="M182 161 h44 m-16 -12 l18 12 l-18 12" stroke="url(#arr1)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g>
+    <rect x="252" y="86" width="140" height="150" rx="12" fill="#0F1A1C" stroke="#22d3a6" stroke-opacity="0.3"/>
+    <rect x="264" y="100" width="116" height="14" rx="4" fill="#0e4b45"/>
+    <rect x="264" y="124" width="116" height="12" rx="4" fill="#123a3a"/>
+    <rect x="264" y="144" width="116" height="12" rx="4" fill="#123a3a"/>
+    <rect x="264" y="164" width="116" height="12" rx="4" fill="#123a3a"/>
+    <rect x="264" y="184" width="116" height="12" rx="4" fill="#123a3a"/>
+    <circle cx="372" cy="96" r="16" fill="#22d3a6"/>
+    <path d="M365 96 l5 5 l9 -10" stroke="#06231f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <text x="26" y="52" fill="#eaf6ff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800">Data Cleaning</text>
+  <text x="27" y="72" fill="#5f7a90" font-family="Arial, Helvetica, sans-serif" font-size="12.5" letter-spacing="1">MESSY → ANALYSIS-READY</text>
 </svg>
