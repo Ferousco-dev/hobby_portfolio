@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#12091A"/>
+  <rect width="800" height="500" fill="url(#g)" opacity="0.6"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="800" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2a1140"/><stop offset="1" stop-color="#12091A"/>
+    </linearGradient>
+  </defs>
+  <g font-family="Courier New, monospace" font-size="16" fill="#c8a2ff">
+    <rect x="48" y="56" width="704" height="300" rx="10" fill="#1c1030"/>
+    <text x="70" y="96">=SUMIFS(Salary, Dept, "Sales")</text>
+    <text x="70" y="134" fill="#8f7ab8">=AVERAGEIFS(Salary, City, "Lagos", Gender, "Female")</text>
+    <text x="70" y="172">=COUNTIFS(City, "Lagos", Gender, "Male")</text>
+    <text x="70" y="210" fill="#8f7ab8">=MAXIFS(Salary, Dept, "IT")</text>
+    <text x="70" y="248">=LEFT(Name, FIND(" ", Name)-1)</text>
+    <text x="70" y="286" fill="#8f7ab8">=LOWER(First)&amp;"."&amp;LOWER(Last)&amp;"@dame.com"</text>
+    <text x="70" y="324">=TRIM(PROPER(FullName))</text>
+  </g>
+  <text x="48" y="410" fill="#b98bff" font-family="Arial, sans-serif" font-size="22" font-weight="700">Employee Data Analysis</text>
+  <text x="48" y="440" fill="#7a6a94" font-family="Arial, sans-serif" font-size="16">Text &amp; aggregate functions in Excel</text>
+</svg>
