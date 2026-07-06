@@ -70,6 +70,55 @@ async function downloadTgFile(
   return { bytes, filePath }
 }
 
+// --- Google Drive helpers ------------------------------------------------
+// Extract the file id from any common Drive / Docs share URL.
+function driveId(url: string): string | null {
+  const m =
+    url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) ||
+    url.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
+    url.match(/\/d\/([a-zA-Z0-9_-]+)/)
+  return m ? m[1] : null
+}
+
+// First Google Drive / Docs link found in a block of text.
+function firstDriveUrl(text: string): string | null {
+  const m = text.match(/https?:\/\/(?:drive|docs)\.google\.com\/[^\s]+/)
+  return m ? m[0] : null
+}
+
+// Fetch Drive's rendered thumbnail — a preview image of the file (image, PDF,
+// spreadsheet, etc.). Requires the file be shared "Anyone with the link".
+async function fetchDrivePreview(
+  id: string,
+): Promise<{ bytes: Uint8Array; contentType: string } | null> {
+  try {
+    const res = await fetch(
+      `https://drive.google.com/thumbnail?id=${id}&sz=w1600`,
+      { redirect: 'follow' },
+    )
+    const ct = res.headers.get('content-type') || ''
+    if (!res.ok || !ct.startsWith('image/')) return null
+    return { bytes: new Uint8Array(await res.arrayBuffer()), contentType: ct }
+  } catch {
+    return null
+  }
+}
+
+// Upload image bytes to the public image bucket, return its public URL.
+async function uploadImage(
+  slug: string,
+  bytes: Uint8Array,
+  contentType: string,
+): Promise<string | null> {
+  const ext = contentType.includes('png') ? 'png' : 'jpg'
+  const objectPath = `projects/${slug}-${Date.now()}.${ext}`
+  const { error } = await admin.storage
+    .from(IMAGE_BUCKET)
+    .upload(objectPath, bytes, { contentType, upsert: true })
+  if (error) return null
+  return `${SUPABASE_URL}/storage/v1/object/public/${IMAGE_BUCKET}/${objectPath}`
+}
+
 // Best-effort scrape: fetch a URL and return readable text (tags stripped).
 async function scrapeUrl(url: string): Promise<string> {
   try {
@@ -154,6 +203,19 @@ const HELP = [
   '',
   '3️⃣ Send the workbook as a <b>file/document</b> with caption',
   '   <code>Slug: the-project-slug</code> to add a download button.',
+  '',
+  '🔗 <b>Or use Google Drive</b> — send a text message with a Drive link.',
+  'I grab a preview of the file for the image and keep the link as download:',
+  '',
+  '<code>Name: Sales Dashboard',
+  'Category: Excel · Dashboard',
+  'Tools: Excel, Pivot Tables',
+  'Summary: What the project does...',
+  'Image: https://drive.google.com/file/d/FILE_ID/view',
+  'Featured: yes</code>',
+  '',
+  '(Share the Drive file as “Anyone with the link”. <code>Image:</code> is the',
+  'preview; add a separate <code>File:</code> Drive link for a different download.)',
   '',
   'Other commands:',
   '• <code>/list</code> — list projects + slugs',
@@ -301,6 +363,98 @@ async function attachFile(
   await tgSend(chatId, `📎 Attached download to <b>${slug}</b>. It shows on the project page.`)
 }
 
+// Add/update a project from a TEXT message that carries a Google Drive link.
+// The Drive file's preview thumbnail becomes the project image (self-hosted),
+// and the Drive link is kept as the download.
+async function addProjectFromText(chatId: number, text: string) {
+  const fields = parseCaption(text)
+  const name = fields['name']
+  if (!name) {
+    await tgSend(chatId, '⚠️ Add a <code>Name:</code> line along with the Drive link. Send /help for the format.')
+    return
+  }
+  const slug = fields['slug'] ? slugify(fields['slug']) : slugify(name)
+
+  // Which link becomes the preview image, and which becomes the download.
+  const imageSrc = fields['image'] || fields['file'] || firstDriveUrl(text) || ''
+  const fileLink = fields['file'] || firstDriveUrl(text) || null
+
+  let imageUrl = ''
+  const id = imageSrc ? driveId(imageSrc) : null
+  if (id) {
+    const preview = await fetchDrivePreview(id)
+    if (!preview) {
+      await tgSend(chatId, '⚠️ Couldn’t read that Drive file. Make sure it’s shared with <b>“Anyone with the link”</b>, then resend.')
+      return
+    }
+    imageUrl = (await uploadImage(slug, preview.bytes, preview.contentType)) || ''
+  } else if (/^https?:\/\/\S+\.(png|jpe?g|webp)$/i.test(imageSrc)) {
+    // A direct image URL — self-host it too.
+    try {
+      const r = await fetch(imageSrc)
+      const ct = r.headers.get('content-type') || 'image/jpeg'
+      imageUrl =
+        (await uploadImage(slug, new Uint8Array(await r.arrayBuffer()), ct)) ||
+        imageSrc
+    } catch {
+      imageUrl = imageSrc
+    }
+  }
+
+  if (!imageUrl) {
+    await tgSend(chatId, '⚠️ I need an image. Add <code>Image: &lt;google drive link&gt;</code> (or send a photo instead).')
+    return
+  }
+
+  const { count } = await admin
+    .from('projects')
+    .select('*', { count: 'exact', head: true })
+  const nextOrder = (count ?? 0) + 1
+  const tools = (fields['tools'] || '')
+    .split(',')
+    .map((t) => t.trim())
+    .filter(Boolean)
+  const featured = /^(yes|true|1)$/i.test(fields['featured'] || '')
+  const category = fields['category'] || 'Project'
+  const summary = fields['summary'] || ''
+  const link = fields['link'] || null
+
+  const { error } = await admin.from('projects').upsert(
+    {
+      slug,
+      number: fields['number'] || String(nextOrder).padStart(2, '0'),
+      category,
+      name,
+      summary,
+      image_url: imageUrl,
+      tools,
+      link,
+      file_url: fileLink,
+      featured,
+      sort_order: fields['order'] ? Number(fields['order']) : nextOrder,
+    },
+    { onConflict: 'slug' },
+  )
+  if (error) {
+    await tgSend(chatId, `⚠️ Saving the project failed: ${error.message}`)
+    return
+  }
+
+  await tgSend(
+    chatId,
+    `✅ Saved <b>${name}</b> (<code>${slug}</code>) from Drive${featured ? ' — featured' : ''}.` +
+      (GEMINI_API_KEY ? '\n✍️ Generating an AI write-up…' : ''),
+  )
+
+  if (GEMINI_API_KEY) {
+    const writeup = await generateWriteup({ name, category, tools, summary, link })
+    if (writeup) {
+      await admin.from('projects').update({ writeup }).eq('slug', slug)
+      await tgSend(chatId, `✍️ Write-up saved for <b>${name}</b>.`)
+    }
+  }
+}
+
 // ----------------------------------------------------------------- router
 async function handleUpdate(update: any) {
   const message = update.message ?? update.edited_message
@@ -389,6 +543,12 @@ async function handleUpdate(update: any) {
     }
     const largest = message.photo[message.photo.length - 1]
     await addProject(chatId, largest.file_id, message.caption)
+    return
+  }
+
+  // --- text message with a Google Drive link = add/update via Drive preview ---
+  if (!message.document && (firstDriveUrl(text) || /name\s*:/i.test(text))) {
+    await addProjectFromText(chatId, text)
     return
   }
 
