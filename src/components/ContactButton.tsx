@@ -5,7 +5,7 @@ interface ContactButtonProps {
 export default function ContactButton({ className = "" }: ContactButtonProps) {
   return (
     <a
-      href="https://wa.me/2349072182889"
+      href="https://wa.me/2348114409571"
       target="_blank"
       rel="noopener noreferrer"
       className={`inline-flex items-center justify-center rounded-full font-medium uppercase tracking-widest text-white px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base ${className}`}
