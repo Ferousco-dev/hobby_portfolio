@@ -7,6 +7,7 @@ import ProjectsSection from './components/ProjectsSection'
 import ContactSection from './components/ContactSection'
 import FooterSection from './components/FooterSection'
 import AllProjectsPage from './components/AllProjectsPage'
+import ProjectDetailPage from './components/ProjectDetailPage'
 
 // Lightweight hash router: `#/work` shows the full projects page,
 // everything else shows the home page. Works on any static host.
@@ -29,6 +30,16 @@ function useHashRoute() {
 
 export default function App() {
   const hash = useHashRoute()
+
+  if (hash.startsWith('#/project/')) {
+    const slug = decodeURIComponent(hash.slice('#/project/'.length))
+    return (
+      <main className="bg-[#0C0C0C]" style={{ overflowX: 'clip' }}>
+        <ProjectDetailPage slug={slug} />
+        <FooterSection />
+      </main>
+    )
+  }
 
   if (hash === '#/work') {
     return (
