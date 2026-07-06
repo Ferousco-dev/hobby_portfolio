@@ -408,7 +408,29 @@ async function handleUpdate(update: any) {
 
 // ------------------------------------------------------------- entrypoint
 Deno.serve(async (req) => {
-  if (req.method === 'GET') return new Response('ok')
+  if (req.method === 'GET') {
+    // One-time webhook registration: GET ...?setup=<ADMIN_PASSKEY>
+    // Uses the bot's own TELEGRAM_BOT_TOKEN secret so the token never leaves
+    // the server. Points Telegram at this function's public URL.
+    const url = new URL(req.url)
+    if (url.searchParams.get('setup') === PASSKEY) {
+      const webhookUrl = `${SUPABASE_URL}/functions/v1/telegram-bot`
+      const body: Record<string, unknown> = {
+        url: webhookUrl,
+        allowed_updates: ['message', 'edited_message'],
+      }
+      if (WEBHOOK_SECRET) body.secret_token = WEBHOOK_SECRET
+      const res = await fetch(`${TG_API}/setWebhook`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      return new Response(await res.text(), {
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+    return new Response('ok')
+  }
   if (req.method !== 'POST') return new Response('method not allowed', { status: 405 })
 
   if (
