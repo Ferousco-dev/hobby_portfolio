@@ -1,51 +1,15 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 import FadeIn from './FadeIn'
 import LiveProjectButton from './LiveProjectButton'
+import { PROJECTS, FEATURED_COUNT, type Project } from '../data/projects'
 
-interface Project {
-  number: string
-  category: string
-  name: string
-  col1: [string, string]
-  col2: string
-  link?: string
-}
-
-const PROJECTS: Project[] = [
-  {
-    number: '01',
-    category: 'Flutter',
-    name: 'OraStudy App',
-    col1: ['/oratudy/1.webp', '/oratudy/2.webp'],
-    col2: '/oratudy/3.webp',
-    link: 'https://play.google.com/apps/testing/com.orastudy.orastudy',
-  },
-  {
-    number: '02',
-    category: 'Hackathon Winner',
-    name: 'TapPay',
-    col1: ['/tappay/1.webp', '/tappay/2.webp'],
-    col2: '/tappay/3.webp',
-    link: 'https://github.com/Ferousco-dev/TapPay',
-  },
-  {
-    number: '03',
-    category: 'Hobby · Next.js',
-    name: 'Oriente',
-    col1: ['/oriente/1.webp', '/oriente/2.webp'],
-    col2: '/oriente/3.webp',
-    link: 'https://oriente-nu.vercel.app',
-  },
-]
-
-const CARD_RADIUS =
-  'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]'
+const CARD_RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]'
 
 interface ProjectCardProps {
   project: Project
   index: number
-  totalCards: number
   progress: ReturnType<typeof useScroll>['scrollYProgress']
   range: [number, number]
   targetScale: number
@@ -78,49 +42,39 @@ function ProjectCard({
             >
               {project.number}
             </span>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
               <span className="text-[#D7E2EA]/60 font-light uppercase tracking-widest text-sm sm:text-base">
                 {project.category}
               </span>
               <span className="text-[#D7E2EA] font-medium uppercase text-lg sm:text-2xl md:text-3xl">
                 {project.name}
               </span>
+              <div className="hidden sm:flex flex-wrap gap-2 mt-1">
+                {project.tools.map((tool) => (
+                  <span
+                    key={tool}
+                    className="rounded-full border border-[#D7E2EA]/25 text-[#D7E2EA]/70 px-3 py-1 text-xs font-light uppercase tracking-wider"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-          <LiveProjectButton href={project.link} />
+          {project.link && <LiveProjectButton href={project.link} />}
         </div>
 
-        {/* Bottom row — image grid */}
+        {/* Single representative image */}
         <div
-          className="flex gap-3 sm:gap-4 md:gap-5 overflow-hidden"
-          style={{ height: 'clamp(260px, 36vw, 500px)' }}
+          className={`overflow-hidden ${CARD_RADIUS}`}
+          style={{ height: 'clamp(240px, 34vw, 460px)' }}
         >
-          {/* Left column 40% */}
-          <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 w-[40%]">
-            <img
-              src={project.col1[0]}
-              alt={`${project.name} preview 1`}
-              loading="lazy"
-              className={`w-full object-cover ${CARD_RADIUS}`}
-              style={{ height: 'clamp(100px, 11vw, 170px)' }}
-            />
-            <img
-              src={project.col1[1]}
-              alt={`${project.name} preview 2`}
-              loading="lazy"
-              className={`w-full object-cover ${CARD_RADIUS}`}
-              style={{ height: 'clamp(190px, 26vw, 390px)' }}
-            />
-          </div>
-          {/* Right column 60% */}
-          <div className="w-[60%]">
-            <img
-              src={project.col2}
-              alt={`${project.name} feature`}
-              loading="lazy"
-              className={`w-full h-full object-cover ${CARD_RADIUS}`}
-            />
-          </div>
+          <img
+            src={project.image}
+            alt={`${project.name} preview`}
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
         </div>
       </motion.div>
     </div>
@@ -134,7 +88,8 @@ export default function ProjectsSection() {
     offset: ['start start', 'end end'],
   })
 
-  const totalCards = PROJECTS.length
+  const featured = PROJECTS.slice(0, FEATURED_COUNT)
+  const totalCards = featured.length
 
   return (
     <section
@@ -148,19 +103,18 @@ export default function ProjectsSection() {
         className="hero-heading font-black uppercase leading-none tracking-tight text-center mb-12 sm:mb-16 md:mb-20"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Project
+        Projects
       </FadeIn>
 
       <div ref={containerRef} className="max-w-6xl mx-auto">
-        {PROJECTS.map((project, index) => {
+        {featured.map((project, index) => {
           const targetScale = 1 - (totalCards - 1 - index) * 0.03
           const rangeStart = index * (1 / totalCards)
           return (
             <ProjectCard
-              key={project.number}
+              key={project.slug}
               project={project}
               index={index}
-              totalCards={totalCards}
               progress={scrollYProgress}
               range={[rangeStart, 1]}
               targetScale={targetScale}
@@ -168,6 +122,20 @@ export default function ProjectsSection() {
           )
         })}
       </div>
+
+      {/* More projects → full projects page */}
+      <FadeIn className="flex justify-center mt-8 sm:mt-12">
+        <a
+          href="#/work"
+          className="group inline-flex items-center gap-3 rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] font-medium uppercase tracking-widest px-10 py-4 sm:px-12 sm:py-5 text-sm sm:text-base transition-colors duration-200 hover:bg-[#D7E2EA]/10"
+        >
+          More Projects
+          <ArrowUpRight
+            size={20}
+            className="opacity-60 group-hover:opacity-100 transition-opacity"
+          />
+        </a>
+      </FadeIn>
     </section>
   )
 }
