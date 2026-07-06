@@ -1,0 +1,13 @@
+{
+  "name": "Oresajo Fiyinfoluwa Eniola — Data Analyst",
+  "short_name": "Oresajo",
+  "description": "Data Analyst specialising in Excel and Power BI dashboards, data cleaning and turning raw data into insights.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0C0C",
+  "theme_color": "#0C0C0C",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}
