@@ -2,8 +2,8 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import FadeIn from './FadeIn'
-import LiveProjectButton from './LiveProjectButton'
-import { PROJECTS, FEATURED_COUNT, type Project } from '../data/projects'
+import { useProjects } from '../hooks/useProjects'
+import { FEATURED_COUNT, type Project } from '../data/projects'
 
 const CARD_RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]'
 
@@ -26,12 +26,10 @@ function ProjectCard({
 
   return (
     <div className="sticky top-24 md:top-32 h-[85vh] flex items-start justify-center">
-      <motion.div
-        style={{
-          scale,
-          top: `${index * 28}px`,
-        }}
-        className={`relative w-full ${CARD_RADIUS} border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8`}
+      <motion.a
+        href={`#/project/${project.slug}`}
+        style={{ scale, top: `${index * 28}px` }}
+        className={`group relative block w-full ${CARD_RADIUS} border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8 transition-colors duration-200 hover:border-white`}
       >
         {/* Top row */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4 sm:mb-6 md:mb-8">
@@ -61,7 +59,10 @@ function ProjectCard({
               </div>
             </div>
           </div>
-          {project.link && <LiveProjectButton href={project.link} />}
+          <span className="inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] font-medium uppercase tracking-widest px-6 py-3 text-sm transition-colors duration-200 group-hover:bg-[#D7E2EA]/10">
+            View
+            <ArrowUpRight size={18} />
+          </span>
         </div>
 
         {/* Single representative image */}
@@ -73,22 +74,24 @@ function ProjectCard({
             src={project.image}
             alt={`${project.name} preview`}
             loading="lazy"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         </div>
-      </motion.div>
+      </motion.a>
     </div>
   )
 }
 
 export default function ProjectsSection() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const { projects } = useProjects()
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   })
 
-  const featured = PROJECTS.slice(0, FEATURED_COUNT)
+  const flagged = projects.filter((p) => p.featured)
+  const featured = (flagged.length ? flagged : projects).slice(0, FEATURED_COUNT)
   const totalCards = featured.length
 
   return (
